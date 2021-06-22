@@ -11,19 +11,26 @@
 
 package com.bridgelabz;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class AddressBookMain {
     static Scanner sc = new Scanner(System.in);
-    private ArrayList<Contact> contactArrayList;
+    static ArrayList<Contact> contactArrayList;
     private Map<String, Contact> nameToContactMap;
+    public Map<String, List<Contact>> cityToContactMap;
+    public Map<String, List<Contact>> stateToContactMap;
 
     public AddressBookMain() {
         contactArrayList = new ArrayList<>();
         this.nameToContactMap = new LinkedHashMap<String, Contact>();
+    }
+
+    public List<Contact> getContactArray() {
+        return contactArrayList;
+    }
+
+    public Map<String, Contact> getContactMap() {
+        return nameToContactMap;
     }
 
     /**
@@ -55,10 +62,10 @@ public class AddressBookMain {
         long phoneNumber = sc.nextLong();
         System.out.println("Enter the Email");
         String emailId = sc.next();
-        Contact newcontact = new Contact(firstName, lastName, address, city, state, pinCode, phoneNumber, emailId);
-        this.contactArrayList.add(newcontact);
+        Contact newContact = new Contact(firstName, lastName, address, city, state, pinCode, phoneNumber, emailId);
+        this.contactArrayList.add(newContact);
         String name = firstName + " " + lastName;
-        this.nameToContactMap.put(name, newcontact);
+        this.nameToContactMap.put(name, newContact);
     }
 
     /**
@@ -79,18 +86,18 @@ public class AddressBookMain {
         String name = firstName + " " + lastName;
         Contact editedObject = nameToContactMap.get(name);
         System.out.print("Enter address,city,state,pinCode,phoneNumber,email");
-        String ad = sc.next();
-        editedObject.setAddress(ad);
-        String ci = sc.next();
-        editedObject.setCity(ci);
-        String st = sc.next();
-        editedObject.setState(st);
+        String address = sc.next();
+        editedObject.setAddress(address);
+        String city = sc.next();
+        editedObject.setCity(city);
+        String state = sc.next();
+        editedObject.setState(state);
         int pin = sc.nextInt();
         editedObject.setPinCode(pin);
-        long num = sc.nextLong();
-        editedObject.setPhoneNumber(num);
-        String em = sc.next();
-        editedObject.setEmailId(em);
+        long number = sc.nextLong();
+        editedObject.setPhoneNumber(number);
+        String email = sc.next();
+        editedObject.setEmailId(email);
     }
 
     /**
@@ -106,6 +113,8 @@ public class AddressBookMain {
         Contact object = nameToContactMap.get(name);
         contactArrayList.remove(object);
         nameToContactMap.remove(name);
+        System.out.println("Contact deleted");
+
     }
 
     /**
