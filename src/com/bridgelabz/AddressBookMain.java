@@ -17,8 +17,6 @@ public class AddressBookMain {
     static Scanner sc = new Scanner(System.in);
     static ArrayList<Contact> contactArrayList;
     private Map<String, Contact> nameToContactMap;
-    public Map<String, List<Contact>> cityToContactMap;
-    public Map<String, List<Contact>> stateToContactMap;
 
     public AddressBookMain() {
         contactArrayList = new ArrayList<>();
@@ -29,13 +27,9 @@ public class AddressBookMain {
         return contactArrayList;
     }
 
-    public Map<String, Contact> getContactMap() {
-        return nameToContactMap;
-    }
-
     /**
      * Adds new Contact to Address book that has a unique name
-     * Display contact detail and Address book name as key value pair
+     * Display contact detail and Address book name
      */
     public void addNewContact() {
         String firstName = "";
@@ -56,9 +50,9 @@ public class AddressBookMain {
         String city = sc.next();
         System.out.println("Enter the State");
         String state = sc.next();
-        System.out.println("Enter the Pin code");
+        System.out.println("Enter the PinCode");
         int pinCode = sc.nextInt();
-        System.out.println("Enter the Number");
+        System.out.println("Enter the Phone Number");
         long phoneNumber = sc.nextLong();
         System.out.println("Enter the Email");
         String emailId = sc.next();
@@ -92,10 +86,10 @@ public class AddressBookMain {
         editedObject.setCity(city);
         String state = sc.next();
         editedObject.setState(state);
-        int pin = sc.nextInt();
-        editedObject.setPinCode(pin);
-        long number = sc.nextLong();
-        editedObject.setPhoneNumber(number);
+        int pinCode = sc.nextInt();
+        editedObject.setPinCode(pinCode);
+        long phoneNumber = sc.nextLong();
+        editedObject.setPhoneNumber(phoneNumber);
         String email = sc.next();
         editedObject.setEmailId(email);
     }
@@ -118,7 +112,7 @@ public class AddressBookMain {
     }
 
     /**
-     * This method is used to check for duplicated
+     * This method is used to check for duplicate contacts
      *
      * @param firstname of the person
      * @param lastname  of the person
