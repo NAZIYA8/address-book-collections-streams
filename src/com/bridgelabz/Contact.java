@@ -20,20 +20,20 @@ public class Contact {
     public long phoneNumber;
     public String emailId;
 
-    public Contact(String firstName, String lastName, String address, String city, String state, int pinCode, long mobiileNumber, String emailId) {
-        this.firstName = this.firstName;
-        this.lastName = this.lastName;
-        this.address = this.address;
-        this.city = this.city;
-        this.state = this.state;
-        this.pinCode = this.pinCode;
+    public Contact(String firstName, String lastName, String address, String city, String state, int pinCode, long phoneNumber, String emailId) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.city = city;
+        this.state = state;
+        this.pinCode = pinCode;
         this.phoneNumber = phoneNumber;
-        this.emailId = this.emailId;
+        this.emailId = emailId;
     }
 
     @Override
     public String toString() {
-        return "First Name: " + firstName + " \nLast Name: " + lastName + "\nAddress :" + address + "\nCity: " + city + "\nPincode: " + pinCode + "\nState: " + state + "\nPhoneNumber: " + phoneNumber + "\nEmail ID: " + emailId;
+        return "First Name: " + firstName + " \nLast Name: " + lastName + "\nAddress :" + address + "\nCity: " + city + "\nPinCode: " + pinCode + "\nState: " + state + "\nPhoneNumber: " + phoneNumber + "\nEmail ID: " + emailId;
     }
 
     public String getFirstName() {

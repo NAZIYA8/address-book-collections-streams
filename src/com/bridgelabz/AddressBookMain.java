@@ -11,23 +11,44 @@
 package com.bridgelabz;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class AddressBookMain {
     static Scanner sc = new Scanner(System.in);
     private ArrayList<Contact> contactArrayList;
+    private Map<String, Contact> nameToContactMap;
 
     public AddressBookMain() {
         contactArrayList = new ArrayList<>();
+        nameToContactMap = new HashMap<>();
     }
 
     /**
      * Adds new Contact to Address book that has a unique name
      * Display contact detail and Address book name
      */
-    private void addNewContact(String firstName, String lastName, String address, String city, String state, int pinCode, long phoneNumber, String emailId) {
-        Contact object = new Contact(firstName, lastName, address, city, state, pinCode, phoneNumber, emailId);
-        contactArrayList.add(object);
+    public void addNewContact() {
+        System.out.println("Enter First Name");
+        String firstName = sc.next();
+        System.out.println("Enter last Name");
+        String lastName = sc.next();
+        System.out.println("Enter the Address");
+        String address = sc.next();
+        System.out.println("Enter the City");
+        String city = sc.next();
+        System.out.println("Enter the State");
+        String state = sc.next();
+        System.out.println("Enter the PinCode");
+        int pinCode = sc.nextInt();
+        System.out.println("Enter the PhoneNumber");
+        long phoneNumber = sc.nextLong();
+        System.out.println("Enter the EmailId");
+        String emailId = sc.next();
+        Contact contact = new Contact(firstName, lastName, address, city, state, pinCode, phoneNumber, emailId);
+        contactArrayList.add(contact);
+        nameToContactMap.put(contact.getFirstName() + " " + contact.getFirstName(), contact);
     }
 
     /**
@@ -37,69 +58,71 @@ public class AddressBookMain {
         System.out.println("Enter The First Name And Last Name to edit the contact details");
         String firstName = sc.next();
         String lastName = sc.next();
-        for (int i = 0; i < contactArrayList.size(); i++) {
-            Contact object = contactArrayList.get(i);
-            if (object.firstName.equals(firstName) && object.lastName.equals(lastName)) {
-                System.out.print("Enter address,city,state,pinCode,phoneNumber,email");
-                String address = sc.next();
-                object.setAddress(address);
-                String city = sc.next();
-                object.setCity(city);
-                String state = sc.next();
-                object.setState(state);
-                int pinCode = sc.nextInt();
-                object.setPinCode(pinCode);
-                long phoneNumber = sc.nextLong();
-                object.setPhoneNumber(phoneNumber);
-                String emailId = sc.next();
-                object.setEmailId(emailId);
-                System.out.println(contactArrayList);
-                break;
-            }
-        }
+        String name = firstName + " " + lastName;
+        Contact object = nameToContactMap.get(name);
+        System.out.print("Enter address,city,state,pinCode,phoneNumber,email");
+        String address = sc.next();
+        object.setAddress(address);
+        String city = sc.next();
+        object.setCity(city);
+        String state = sc.next();
+        object.setState(state);
+        int pinCode = sc.nextInt();
+        object.setPinCode(pinCode);
+        long phoneNumber = sc.nextLong();
+        object.setPhoneNumber(phoneNumber);
+        String email = sc.next();
+        object.setEmailId(email);
     }
 
     /**
      * Delete contact details of a record of a
      * person using their First Name.
      */
-    public void deleteContactDetails(String firstName, String lastName) {
-        for (int i = 0; i < contactArrayList.size(); i++) {
-            Contact object = contactArrayList.get(i);
-            if (object.firstName.equals(firstName) && object.lastName.equals(lastName)) {
-                contactArrayList.remove(i);
-                System.out.println("Contact deleted");
-                break;
-            }
-        }
-    }
-
-
-    /**
-     * This is the main method.
-     *
-     * @param args
-     */
-    public static void main(String args[]) {
-        AddressBookMain addressBookContacts = new AddressBookMain();
-        System.out.println("Enter number of contact details to enter:");
-        int numOfContact = sc.nextInt();
-        for (int i = 0; i < numOfContact; i++) {
-            System.out.print("Enter FirstName,Last Name,address,city,state,pinCode,phoneNumber,email");
-            String firstName = sc.next();
-            String lastName = sc.next();
-            String address = sc.next();
-            String city = sc.next();
-            String state = sc.next();
-            int pinCode = sc.nextInt();
-            long phoneNumber = sc.nextLong();
-            String email = sc.next();
-            addressBookContacts.addNewContact(firstName, lastName, address, city, state, pinCode, phoneNumber, email);
-        }
-        addressBookContacts.editContact();
-        System.out.println("Enter first name and last name of contact to be deleted: ");
+    public void deleteContactDetails() {
+        System.out.println("Enter The First Name And Last Name to delete the contact details");
         String firstName = sc.next();
         String lastName = sc.next();
-        addressBookContacts.deleteContactDetails(firstName, lastName);
+        String name = firstName + " " + lastName;
+        Contact object = nameToContactMap.get(name);
+        contactArrayList.remove(object);
+        nameToContactMap.remove(name);
+
+    }
+
+    /**
+     * This method is used to maintain the Address book.
+     */
+    public void maintainAddressBook() {
+        boolean check = true;
+        while (check == true) {
+            System.out.println("\n1. Add Contact Details");
+            System.out.println("\n2. Edit Contact Details");
+            System.out.println("\n3. Delete Contact Details");
+            System.out.println("\n4. Exit");
+            System.out.println("\nEnter your choice");
+            int choice = sc.nextInt();
+            switch (choice) {
+                case 1:
+                    addNewContact();
+                    break;
+                case 2:
+                    if (contactArrayList.size() == 0)
+                        System.out.println("Please Enter contacts");
+                    else
+                        editContact();
+                    break;
+                case 3:
+                    if (contactArrayList.size() == 0)
+                        System.out.println("Please Enter contacts");
+                    else
+                        deleteContactDetails();
+                    break;
+                case 4:
+                    System.out.println("Exit");
+                    check = false;
+                    break;
+            }
+        }
     }
 }
