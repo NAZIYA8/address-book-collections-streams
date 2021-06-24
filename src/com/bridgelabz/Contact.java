@@ -20,15 +20,15 @@ public class Contact {
     public long phoneNumber;
     public String emailId;
 
-    public Contact() {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.address = address;
-        this.city = city;
-        this.state = state;
-        this.pinCode = pinCode;
+    public Contact(String firstName, String lastName, String address, String city, String state, int pinCode, long mobiileNumber, String emailId) {
+        this.firstName = this.firstName;
+        this.lastName = this.lastName;
+        this.address = this.address;
+        this.city = this.city;
+        this.state = this.state;
+        this.pinCode = this.pinCode;
         this.phoneNumber = phoneNumber;
-        this.emailId = emailId;
+        this.emailId = this.emailId;
     }
 
     @Override
