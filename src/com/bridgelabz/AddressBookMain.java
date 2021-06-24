@@ -17,8 +17,8 @@ public class AddressBookMain {
     static Scanner sc = new Scanner(System.in);
     static ArrayList<Contact> contactArrayList;
     private Map<String, Contact> nameToContactMap;
-    public Map<String, List<Contact>> cityToContactMap;
-    public Map<String, List<Contact>> stateToContactMap;
+    public LinkedHashMap<Object, List<Contact>> cityToContactMap;
+    public LinkedHashMap<Object, List<Contact>> stateToContactMap;
 
     public AddressBookMain() {
         contactArrayList = new ArrayList<>();
@@ -58,7 +58,7 @@ public class AddressBookMain {
         String state = sc.next();
         System.out.println("Enter the PinCode");
         int pinCode = sc.nextInt();
-        System.out.println("Enter the Phone Number");
+        System.out.println("Enter the PhoneNumber");
         long phoneNumber = sc.nextLong();
         System.out.println("Enter the Email");
         String emailId = sc.next();
@@ -132,7 +132,6 @@ public class AddressBookMain {
             return false;
     }
 
-
     /**
      * This method is used to sort the entries alphabetically
      * by person's name.
@@ -140,6 +139,36 @@ public class AddressBookMain {
     public void sortByName() {
         List<Contact> sortedList = contactArrayList.stream()
                 .sorted(Comparator.comparing(Contact::getFirstName))
+                .collect(Collectors.toList());
+        sortedList.forEach(System.out::println);
+    }
+
+    /**
+     * This method is used to sort the entries by city
+     */
+    public void sortByCity() {
+        List<Contact> sortedList = contactArrayList.stream()
+                .sorted(Comparator.comparing(Contact::getCity))
+                .collect(Collectors.toList());
+        sortedList.forEach(System.out::println);
+    }
+
+    /**
+     * This method is used to sort the entries by State
+     */
+    public void sortByState() {
+        List<Contact> sortedList = contactArrayList.stream()
+                .sorted(Comparator.comparing(Contact::getState))
+                .collect(Collectors.toList());
+        sortedList.forEach(System.out::println);
+    }
+
+    /**
+     * This method is used to sort the entries by PinCode
+     */
+    public void sortByZip() {
+        List<Contact> sortedList = contactArrayList.stream()
+                .sorted(Comparator.comparingInt(Contact::getPinCode))
                 .collect(Collectors.toList());
         sortedList.forEach(System.out::println);
     }
@@ -155,7 +184,10 @@ public class AddressBookMain {
             System.out.println("\n3. Delete Contact Details");
             System.out.println("\n4. Show Contact details");
             System.out.println("\n5. Sort details by name");
-            System.out.println("\n6. Exit");
+            System.out.println("\n6. Sort details by City");
+            System.out.println("\n7. Sort details by State");
+            System.out.println("\n8. Sort details by pinCode");
+            System.out.println("\n9. Exit");
             System.out.println("\nEnter your choice");
             int choice = sc.nextInt();
             switch (choice) {
@@ -179,7 +211,17 @@ public class AddressBookMain {
                     break;
                 case 5:
                     sortByName();
+                    break;
                 case 6:
+                    sortByCity();
+                    break;
+                case 7:
+                    sortByState();
+                    break;
+                case 8:
+                    sortByZip();
+                    break;
+                case 9:
                     System.out.println("Exit");
                     check = false;
                     break;
