@@ -11,15 +11,18 @@
 
 package com.bridgelabz;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class AddressBookMain {
     static Scanner sc = new Scanner(System.in);
+    static List<Contact> contactList = new ArrayList<>();
 
     /**
-     * This method is used to create new contacts
+     * This method is used to add new contacts
      */
-    public static void createContacts() {
+    public static void addContacts() {
         Contact contact = new Contact();
         System.out.println("Enter First Name");
         contact.setFirstName(sc.next());
@@ -38,13 +41,16 @@ public class AddressBookMain {
         System.out.println("Enter Email");
         contact.setEmailId(sc.next());
         System.out.println("-------------");
+        contactList.add(contact);
+
     }
 
     /**
      * This is the main method where all methods are called.
+     *
      * @param args
      */
     public static void main(String args[]) {
-        createContacts();
+        addContacts();
     }
 }
