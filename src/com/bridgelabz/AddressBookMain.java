@@ -11,158 +11,40 @@
 
 package com.bridgelabz;
 
-import java.util.*;
+import java.util.Scanner;
 
 public class AddressBookMain {
     static Scanner sc = new Scanner(System.in);
-    static ArrayList<Contact> contactArrayList;
-    private Map<String, Contact> nameToContactMap;
 
-    public AddressBookMain() {
-        contactArrayList = new ArrayList<>();
-        this.nameToContactMap = new LinkedHashMap<String, Contact>();
-    }
-
-    public List<Contact> getContactArray() {
-        return contactArrayList;
+    /**
+     * This method is used to create new contacts
+     */
+    public static void createContacts() {
+        Contact contact = new Contact();
+        System.out.println("Enter First Name");
+        contact.setFirstName(sc.next());
+        System.out.println("Enter last Name");
+        contact.setLastName(sc.next());
+        System.out.println("Enter Address");
+        contact.setAddress(sc.next());
+        System.out.println("Enter State");
+        contact.setState(sc.next());
+        System.out.println("Enter City");
+        contact.setCity(sc.next());
+        System.out.println("Enter Zip");
+        contact.setPinCode(sc.nextInt());
+        System.out.println("Enter Phone");
+        contact.setPhoneNumber(sc.nextInt());
+        System.out.println("Enter Email");
+        contact.setEmailId(sc.next());
+        System.out.println("-------------");
     }
 
     /**
-     * Adds new Contact to Address book that has a unique name
-     * Display contact detail and Address book name
+     * This is the main method where all methods are called.
+     * @param args
      */
-    public void addNewContact() {
-        String firstName = "";
-        String lastName = "";
-        while (true) {
-            System.out.println("Enter First Name");
-            firstName = sc.next();
-            System.out.println("Enter last Name");
-            lastName = sc.next();
-            if (checkForDuplicate(firstName, lastName))
-                continue;
-            else
-                break;
-        }
-        System.out.println("Enter the Address");
-        String address = sc.next();
-        System.out.println("Enter the City");
-        String city = sc.next();
-        System.out.println("Enter the State");
-        String state = sc.next();
-        System.out.println("Enter the PinCode");
-        int pinCode = sc.nextInt();
-        System.out.println("Enter the Phone Number");
-        long phoneNumber = sc.nextLong();
-        System.out.println("Enter the Email");
-        String emailId = sc.next();
-        Contact newContact = new Contact(firstName, lastName, address, city, state, pinCode, phoneNumber, emailId);
-        this.contactArrayList.add(newContact);
-        String name = firstName + " " + lastName;
-        this.nameToContactMap.put(name, newContact);
-    }
-
-    /**
-     * This method is used to print the contacts
-     */
-    public void printContacts() {
-        System.out.println(contactArrayList);
-    }
-
-    /**
-     * Edit existing contact using their name
-     */
-    public void editContact() {
-        System.out.println("Enter The First Name to edit the contact details");
-        String firstName = sc.next();
-        System.out.println("Enter The last Name to edit the contact details");
-        String lastName = sc.next();
-        String name = firstName + " " + lastName;
-        Contact editedObject = nameToContactMap.get(name);
-        System.out.print("Enter address,city,state,pinCode,phoneNumber,email");
-        String address = sc.next();
-        editedObject.setAddress(address);
-        String city = sc.next();
-        editedObject.setCity(city);
-        String state = sc.next();
-        editedObject.setState(state);
-        int pinCode = sc.nextInt();
-        editedObject.setPinCode(pinCode);
-        long phoneNumber = sc.nextLong();
-        editedObject.setPhoneNumber(phoneNumber);
-        String email = sc.next();
-        editedObject.setEmailId(email);
-    }
-
-    /**
-     * Delete contact details of a record of a
-     * person using their First Name.
-     */
-    public void deleteContactDetails() {
-        System.out.println("Enter The First Name to delete the contact details");
-        String firstName = sc.next();
-        System.out.println("Enter The last Name to delete the contact details");
-        String lastName = sc.next();
-        String name = firstName + " " + lastName;
-        Contact object = nameToContactMap.get(name);
-        contactArrayList.remove(object);
-        nameToContactMap.remove(name);
-        System.out.println("Contact deleted");
-
-    }
-
-    /**
-     * This method is used to check for duplicate contacts
-     *
-     * @param firstname of the person
-     * @param lastname  of the person
-     */
-    public boolean checkForDuplicate(String firstname, String lastname) {
-        if (contactArrayList.stream().anyMatch(obj -> obj.getFirstName().equals(firstname))
-                && contactArrayList.stream().anyMatch(obj -> obj.getLastName().equals(lastname))) {
-            System.out.println("This contact already exists, try again!!");
-            return true;
-        } else
-            return false;
-    }
-
-    /**
-     * This method is used to maintain the Address book.
-     */
-    public void maintainAddressBook() {
-        boolean check = true;
-        while (check == true) {
-            System.out.println("\n1. Add Contact Details");
-            System.out.println("\n2. Edit Contact Details");
-            System.out.println("\n3. Delete Contact Details");
-            System.out.println("\n4. Show Contact details");
-            System.out.println("\n5. Exit");
-            System.out.println("\nEnter your choice");
-            int choice = sc.nextInt();
-            switch (choice) {
-                case 1:
-                    addNewContact();
-                    break;
-                case 2:
-                    if (contactArrayList.size() == 0)
-                        System.out.println("Please Enter contacts");
-                    else
-                        editContact();
-                    break;
-                case 3:
-                    if (contactArrayList.size() == 0)
-                        System.out.println("Please Enter contacts");
-                    else
-                        deleteContactDetails();
-                    break;
-                case 4:
-                    printContacts();
-                    break;
-                case 5:
-                    System.out.println("Exit");
-                    check = false;
-                    break;
-            }
-        }
+    public static void main(String args[]) {
+        createContacts();
     }
 }

@@ -20,14 +20,14 @@ public class Contact {
     public long phoneNumber;
     public String emailId;
 
-    public Contact(String firstName, String lastName, String address, String city, String state, int pinCode, long mobileNumber, String emailId) {
+    public Contact() {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.city = city;
         this.state = state;
         this.pinCode = pinCode;
-        this.phoneNumber = mobileNumber;
+        this.phoneNumber = phoneNumber;
         this.emailId = emailId;
     }
 
