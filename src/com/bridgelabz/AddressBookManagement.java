@@ -11,7 +11,12 @@
 
 package com.bridgelabz;
 
-import java.util.*;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 public class AddressBookManagement {
     static Scanner sc = new Scanner(System.in);
@@ -43,7 +48,7 @@ public class AddressBookManagement {
     }
 
     /**
-     * This method is used to view persons by State
+     * This method is used to view person by State
      */
     public static void showContactGroupedByState() {
         Set<String> listOfState = stateToContactEntryMap.keySet();
@@ -56,25 +61,13 @@ public class AddressBookManagement {
     /**
      * This method is used to search the person
      * across multiple address book.
-     *
-     * @param search
      */
-    public static void searchPersonInBook(String search) {
-        int numberOfPerson = 0;
-        Iterator contactArray = nameToAddressBookMap.entrySet().iterator();
-        while (contactArray.hasNext()) {
-            Map.Entry entry = (Map.Entry) contactArray.next();
-            AddressBookMain a = (AddressBookMain) entry.getValue();
-            List<Contact> list = a.getContactArray();
-            for (Contact contact : list) {
-                if (contact.getCity().equals(search) || contact.getState().equals(search)) {
-                    System.out.println(contact);
-                    numberOfPerson++;
-                }
-            }
-            if (numberOfPerson == 0)
-                System.out.println("No person was found");
-        }
+    public static void searchPersonInBook(String searchIn) {
+        Predicate<Contact> search = n -> n.getFirstName().equals(searchIn) ? true : false;
+        Consumer<Contact> display = n -> System.out.println(n);
+        nameToAddressBookMap.forEach((k, v) -> {
+            v.getContactArray().stream().filter(search).forEach(display);
+        });
     }
 
     /**
@@ -100,7 +93,6 @@ public class AddressBookManagement {
             System.out.println("No of contact entries for STATE " + stateName + " " + ((Map<String, AddressBookMain>) contactNumber).size());
         }
     }
-
 
     /**
      * This is the main method.

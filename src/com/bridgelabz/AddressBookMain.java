@@ -11,6 +11,7 @@
 package com.bridgelabz;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class AddressBookMain {
     static Scanner sc = new Scanner(System.in);
@@ -36,7 +37,6 @@ public class AddressBookMain {
      * Adds new Contact to Address book that has a unique name
      * Display contact detail and Address book name
      */
-
     public void addNewContact() {
         String firstName = "";
         String lastName = "";
@@ -100,7 +100,6 @@ public class AddressBookMain {
         editedObject.setEmailId(email);
     }
 
-
     /**
      * Delete contact details of a record of a
      * person using their First Name.
@@ -133,6 +132,18 @@ public class AddressBookMain {
             return false;
     }
 
+
+    /**
+     * This method is used to sort the entries alphabetically
+     * by person's name.
+     */
+    public void sortByName() {
+        List<Contact> sortedList = contactArrayList.stream()
+                .sorted(Comparator.comparing(Contact::getFirstName))
+                .collect(Collectors.toList());
+        sortedList.forEach(System.out::println);
+    }
+
     /**
      * This method is used to maintain the Address book.
      */
@@ -143,7 +154,8 @@ public class AddressBookMain {
             System.out.println("\n2. Edit Contact Details");
             System.out.println("\n3. Delete Contact Details");
             System.out.println("\n4. Show Contact details");
-            System.out.println("\n5. Exit");
+            System.out.println("\n5. Sort details by name");
+            System.out.println("\n6. Exit");
             System.out.println("\nEnter your choice");
             int choice = sc.nextInt();
             switch (choice) {
@@ -166,6 +178,8 @@ public class AddressBookMain {
                     printContacts();
                     break;
                 case 5:
+                    sortByName();
+                case 6:
                     System.out.println("Exit");
                     check = false;
                     break;
