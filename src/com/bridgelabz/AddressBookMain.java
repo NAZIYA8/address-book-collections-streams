@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 
 public class AddressBookMain {
     static Scanner sc = new Scanner(System.in);
+    AddressBookCollectionIOService addressBookCollectionIOService = new AddressBookCollectionIOService();
     static ArrayList<Contact> contactArrayList;
     private Map<String, Contact> nameToContactMap;
     public LinkedHashMap<Object, List<Contact>> cityToContactMap;
@@ -187,6 +188,8 @@ public class AddressBookMain {
             System.out.println("\n6. Sort details by City");
             System.out.println("\n7. Sort details by State");
             System.out.println("\n8. Sort details by pinCode");
+            System.out.println("\n9. Read Contact");
+            System.out.println("\n10. Write contact");
             System.out.println("\n9. Exit");
             System.out.println("\nEnter your choice");
             int choice = sc.nextInt();
@@ -222,6 +225,12 @@ public class AddressBookMain {
                     sortByZip();
                     break;
                 case 9:
+                    addressBookCollectionIOService.readContactFile();
+                    break;
+                case 10:
+                    addressBookCollectionIOService.writeContact(contactArrayList);
+                    break;
+                case 11:
                     System.out.println("Exit");
                     check = false;
                     break;
